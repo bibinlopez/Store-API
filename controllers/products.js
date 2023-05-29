@@ -1,7 +1,7 @@
 const Product = require('../models/product')
 
 const getAllProductsStatic = async (req, res, next) => {
-   const products = await Product.find().sort('-name price')
+   const products = await Product.find({ featured: true })
    res.status(200).json({ nbHits: products.length, products })
    // const error = new Error(' you are damn it')
    // return next(error)
@@ -11,7 +11,7 @@ const getAllProductsStatic = async (req, res, next) => {
 }
 
 const getAllProducts = async (req, res) => {
-   const { featured, company, name,sort } = req.query
+   const { featured, company, name, sort } = req.query
    const queryObject = {}
    if (featured) {
       queryObject.featured = featured === 'true' ? true : false
